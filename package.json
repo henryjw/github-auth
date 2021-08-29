@@ -1,7 +1,7 @@
 {
   "name": "@henryjw/github-auth",
   "version": "0.0.1",
-  "description": "",
+  "description": "Simple service to retrieve a GitHub OAuth access token.",
   "author": "",
   "private": true,
   "license": "UNLICENSED",

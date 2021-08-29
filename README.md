@@ -1,5 +1,5 @@
 ## Description
-Simple service to retrieve an OAuth token
+Simple service to retrieve a GitHub OAuth access token. Built with NestJS.
 
 ## Installation
 

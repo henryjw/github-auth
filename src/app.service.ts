@@ -32,25 +32,30 @@ type GitHubAuthResponse = {
    *
    * @example: bearer
    */
-  token_type: string;
+  token_type?: string;
 
   /**
    * Access token
    * @example 16C7e42F292c6912E7710c838347Ae178B4a
    */
-  access_token: string;
+  access_token?: string;
 
   /**
    * Comma-separated list of scopes
    *
    * @example repo,gist
    */
-  scope: string;
+  scope?: string;
+
+  error?: string;
+  error_description?: string;
+  error_uri?: string;
 };
 
 @Injectable()
 export class AppService {
   private authConfig: AuthConfig;
+
   constructor(private configService: ConfigService) {
     this.authConfig = {
       clientId: this.configService.get<string>(
@@ -84,6 +89,10 @@ export class AppService {
     try {
       const data: GitHubAuthResponse = response.data;
 
+      if (data.error) {
+        handleError(data);
+      }
+
       return {
         accessToken: data.access_token,
       };
@@ -93,4 +102,12 @@ export class AppService {
       throw new Error('Unexpected error');
     }
   }
+}
+
+function handleError(gitHubResponse: GitHubAuthResponse): void {
+  if (!gitHubResponse.error) {
+    return;
+  }
+
+  throw new Error('Unexpected error');
 }
