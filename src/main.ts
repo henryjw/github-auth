@@ -9,6 +9,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: (requestOrigin) => {
+      // TODO: disable this in non-development environments
       if (requestOrigin.startsWith('http://localhost')) {
         return true;
       }
